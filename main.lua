@@ -5,13 +5,13 @@
 2 - Dirt
 3 - Cloud
 4 - wood
-5 - rock
+5 - stone
 ]]--
 
 map={
-	{ 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -60,8 +60,33 @@ map={
 	
 };
 
+images = {}
+images.grass = love.graphics.newImage("images/grass.png")
+images.dirt = love.graphics.newImage("images/dirt.png")
+images.cloud = love.graphics.newImage("images/cloud.png")
+images.wood = love.graphics.newImage("images/wood.png")
+images.stone = love.graphics.newImage("images/stone.png")
+
+for i,_ in pairs(images) do
+images[i]:setFilter("nearest", "nearest")
+end
+
 local MapWidth = table.getn( map[1] )
 local MapHeight = table.getn( map )
+
+player = {}
+player.X = 1
+player.Y = 1.5
+player.W = 24/25
+player.H = 48/25
+player.canJump = false
+player.xVel = 0
+player.yVel = 0
+player.S = 5
+
+world = {}
+world.grav = 10
+
 
 function SaveMap( name )
 local MapTest = love.filesystem.newFile( name..".txt")
@@ -136,19 +161,6 @@ player.yVel = -(1.5*player.S)
 end
 end
 
-player = {}
-player.X = 1
-player.Y = 1.5
-player.W = 24/25
-player.H = 48/25
-player.canJump = false
-player.xVel = 0
-player.yVel = 0
-player.S = 5
-
-world = {}
-world.grav = 10
-
 function IsBlock( x, y )
 	local b = false
 	if y <= table.getn( map ) and y>=1 then
@@ -183,20 +195,18 @@ for y=1, 25 do
 		local x = math.floor(x+player.X)-16
 		if IsBlock( x, y ) then
 			if map[y][x] > 0 then
-			
+			love.graphics.setColor( 255, 255, 255 ,255 )
 				if map[y][x] == 1 then
-				love.graphics.setColor( 0, 200, 0, 255 )
+				love.graphics.draw( images.grass, (25*x)-25, (25*y)-25, 0, 25/20, 25/20)
 				elseif map[y][x] == 2 then
-				love.graphics.setColor( 128, 64, 64, 255 )
+				love.graphics.draw( images.dirt, (25*x)-25, (25*y)-25, 0, 25/20, 25/20)
 				elseif map[y][x] == 3 then
-				love.graphics.setColor( 255, 255, 255, 100)
+				love.graphics.draw( images.cloud, (25*x)-25, (25*y)-25, 0, 25/20, 25/20)
 				elseif map[y][x] == 4 then
-				love.graphics.setColor( 195, 65, 0, 255 )
+				love.graphics.draw( images.wood, (25*x)-25, (25*y)-25, 0, 25/20, 25/20)
 				elseif map[y][x] >4 then
-				love.graphics.setColor( 100, 100, 100, 255 )
+				love.graphics.draw( images.stone, (25*x)-25, (25*y)-25, 0, 25/20, 25/20)
 				end
-			
-			love.graphics.rectangle("fill", (25*x)-25, (25*y)-25, 25, 25)
 			
 			end
 		end
